@@ -1,19 +1,21 @@
 import { useEffect, useState } from 'react';
 
-const SpeechRecognition =
-  (window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition;
-
+let SpeechRecognition;
 let recognition: any = null;
-
-if (SpeechRecognition) {
-  recognition = new SpeechRecognition();
-}
 
 export default function SpeechToText() {
   const [speechToText, setSpeechToText] = useState('');
-  const [isRecording, setIsRecording] = useState(false);
+  const [ isRecording, setIsRecording ] = useState( false );
 
-  useEffect(() => {
+
+  useEffect( () => {
+    SpeechRecognition =
+    (window as any).SpeechRecognition ?? (window as any).webkitSpeechRecognition;
+  
+    if (SpeechRecognition) {
+      recognition = new SpeechRecognition();
+    }
+
     if (!recognition) {
       console.log('Speech Recognition is not supported in this browser.');
       return;
