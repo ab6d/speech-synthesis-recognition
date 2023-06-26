@@ -1,11 +1,18 @@
 "use client";
+import { useEffect, useState } from 'react';
 import TextToSpeech from './components/text-to-speech';
 import SpeechToText from './components/speech-to-text';
 
 export default function Home() {
-  const isSpeechSynthesisSupported = 'speechSynthesis' in window;
-  const isSpeechRecognitionSupported =
-    'SpeechRecognition' in window || 'webkitSpeechRecognition' in window;
+  const [isSpeechSynthesisSupported, setIsSpeechSynthesisSupported] = useState(true);
+  const [isSpeechRecognitionSupported, setIsSpeechRecognitionSupported] = useState(true);
+
+  useEffect(() => {
+    setIsSpeechSynthesisSupported('speechSynthesis' in window);
+    setIsSpeechRecognitionSupported(
+      'SpeechRecognition' in window || 'webkitSpeechRecognition' in window
+    );
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
